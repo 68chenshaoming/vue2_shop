@@ -1,17 +1,12 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
-
-Vue.use(Vuex)
-
+import Vuex from "vuex"
+//使用插件一次
+Vue.use(Vuex);
+import login from "@/store/login"
+//对外暴露一个Store类的一个实例
 export default new Vuex.Store({
-  state: {
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
+  //实现Vuex仓库模块式开发仓库数据
   modules: {
+    login
   }
 })

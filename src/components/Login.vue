@@ -71,7 +71,11 @@ export default {
     login() {
       this.$refs.loginFromRef.validate((boolean) => {
         if (!boolean) return
-        this.$store.dispatch('GetLogin', this.loginForm)
+        this.$store.dispatch('GetLogin', this.loginForm).then((res) => {
+          if (res == undefined) {
+            this.$router.push('/home')
+          }
+        })
       })
     },
   },

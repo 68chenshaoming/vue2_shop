@@ -5,14 +5,23 @@ import {
     reqAddUser,
     reqEdUser,
     // reqPutEdUser
-    reqDeleteUser
+    reqDeleteUser,
+    reqGetRightsList,
+    reqGetRoles,
+    reqDeleteRight,
+    reqRoleById,
+    reqDeleteRole,
+    reqAddRole,
+    reqSetRight,
+    reqGetRole
 } from "@/api/index"
 const state = {
     menulist: [],
     userlist: [],
     user: {},
     changestate: {},
-    edlist: {}
+    edlist: {},
+    rolelist: []
 }
 const mutations = {
     GETMENULIST(state, menulist) {
@@ -29,6 +38,9 @@ const mutations = {
     },
     EDUSER(state, edlist) {
         state.edlist = edlist
+    },
+    GETROLES(state, rolelist) {
+        state.rolelist = rolelist
     }
 }
 const actions = {
@@ -112,8 +124,75 @@ const actions = {
         if (result.data.meta.status == 200)
             return result.data
         this._vm.$message.error('删除用户失败')
-    }
+    },
 
+    // 获取列表
+    // async getRightsList({}, list) {
+    //     let result = await reqGetRightsList(list)
+    //     console.log(result)
+    // }
+    async getRoleList({
+        commit
+    }) {
+        let result = await reqGetRoles()
+        // console.log(result.data.data)
+        if (result.data.meta.status !== 200) {
+
+            return this.$message.error('获取角色列表失败')
+        }
+        commit('GETROLES', result.data.data)
+    },
+    async removeRight({
+        commit
+    }, {
+        roleId,
+        rightId
+    }) {
+        let result = await reqDeleteRight(roleId, rightId)
+        if (result.data.meta.status == 200) {
+
+            return result.data
+        }
+    },
+    async editRoleById({}, id) {
+        let result = await reqRoleById(id)
+        if (result.data.meta.status == 200) {
+            return result.data.data
+        }
+    },
+    async deleteRole({}, id) {
+        let {
+            data: res
+        } = await reqDeleteRole(id)
+        console.log(res)
+        if (res.meta.status = 200) {
+            return res
+        }
+    },
+    async addRole({}, role) {
+        let {
+            data: res
+        } = await reqAddRole(role)
+        if (res.meta.status == 201) {
+            return res
+        }
+    },
+    async setRight({}) {
+        let {
+            data: res
+        } = await reqSetRight()
+        if (res.meta.status == 200) {
+            return res
+        }
+    },
+    async setRole() {
+        let {
+            data: res
+        } = await reqGetRole()
+        if (res.meta.status == 200) {
+            return res
+        }
+    }
 }
 const getters = {
 

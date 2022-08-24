@@ -44,3 +44,46 @@ export const reqDeleteUser = (id) => requests({
     url: `users/${id}`,
     method: 'delete'
 })
+
+// export const reqGetRightsList = (list) => requests({
+//     url: `rights/${list}`,
+//     method: 'get'
+// })
+
+export const reqGetRoles = () => requests({
+    url: `roles`,
+    method: 'get'
+})
+
+export const reqDeleteRight = (roleId, rightId) => requests({
+    url: `roles/${roleId}/rights/${rightId}`,
+    method: 'delete'
+})
+
+export const reqRoleById = (id) => requests({
+    url: `roles/${id}`,
+    method: 'get'
+})
+
+export const reqDeleteRole = (id) => requests({
+    url: `roles/${id}`,
+    method: 'delete'
+})
+
+
+export const reqAddRole = (data) => requests({
+    url: `roles`,
+    method: 'post',
+    data
+})
+
+export const reqSetRight = () => requests({
+    url: `rights/tree`,
+    method: 'get',
+
+})
+
+export const reqGetRole = () => requests({
+    url: `roles`,
+    method: 'get'
+})

@@ -15,85 +15,86 @@
           >
         </el-col>
       </el-row>
-    </el-card>
-    <!-- 角色列表区 -->
-    <el-table :data="roleList" border stripe>
-      <!-- 展开列 -->
-      <el-table-column type="expand">
-        <template slot-scope="scope">
-          <el-row
-            :class="['bdbottom', i1 === 0 ? 'bdtop' : 'bdbottom', 'vcenter']"
-            v-for="(item1, i1) in scope.row.children"
-            :key="item1.id"
-          >
-            <!-- 渲染一级权限 -->
-            <el-col :span="5">
-              <el-tag>
-                {{ item1.authName }}
-              </el-tag>
-              <i class="el-icon-caret-right"></i>
-            </el-col>
-            <!-- 渲染二 三级权限 -->
-            <el-col :span="19">
-              <el-row
-                :class="[i2 === 0 ? '' : 'bdtop', 'vcenter']"
-                v-for="(item2, i2) in item1.children"
-                :key="item2.id"
-              >
-                <el-col :span="6">
-                  <el-tag type="success">{{ item2.authName }}</el-tag>
-                  <i class="el-icon-caret-right"></i>
-                </el-col>
 
-                <el-col :span="18">
-                  <el-tag
-                    type="warning"
-                    v-for="(item3, i3) in item2.children"
-                    :key="item3.id"
-                    closable
-                    @close="removeRightById(scope.row, item3.id)"
-                  >
-                    {{ item3.authName }}
-                  </el-tag>
-                </el-col>
-              </el-row>
-            </el-col>
-          </el-row>
-        </template>
-      </el-table-column>
-      <!-- 索引列 -->
-      <el-table-column type="index" label="#"></el-table-column>
-      <el-table-column label="角色名称" prop="roleName"></el-table-column>
-      <el-table-column label="角色描述" prop="roleDesc"></el-table-column>
-      <el-table-column label="操作" width="300px">
-        <template slot-scope="scope">
-          <el-button
-            size="mini"
-            type="primary"
-            icon="el-icon-edit"
-            @click="editRoleById(scope.row.id)"
-          >
-            编辑
-          </el-button>
-          <el-button
-            size="mini"
-            type="danger"
-            icon="el-icon-delete"
-            @click="deleteRoleById(scope.row.id)"
-          >
-            删除
-          </el-button>
-          <el-button
-            size="mini"
-            type="warning"
-            icon="el-icon-setting"
-            @click="showSetRightDialog(scope.row)"
-          >
-            分配权限
-          </el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+      <!-- 角色列表区 -->
+      <el-table :data="roleList" border stripe>
+        <!-- 展开列 -->
+        <el-table-column type="expand">
+          <template slot-scope="scope">
+            <el-row
+              :class="['bdbottom', i1 === 0 ? 'bdtop' : 'bdbottom', 'vcenter']"
+              v-for="(item1, i1) in scope.row.children"
+              :key="item1.id"
+            >
+              <!-- 渲染一级权限 -->
+              <el-col :span="5">
+                <el-tag>
+                  {{ item1.authName }}
+                </el-tag>
+                <i class="el-icon-caret-right"></i>
+              </el-col>
+              <!-- 渲染二 三级权限 -->
+              <el-col :span="19">
+                <el-row
+                  :class="[i2 === 0 ? '' : 'bdtop', 'vcenter']"
+                  v-for="(item2, i2) in item1.children"
+                  :key="item2.id"
+                >
+                  <el-col :span="6">
+                    <el-tag type="success">{{ item2.authName }}</el-tag>
+                    <i class="el-icon-caret-right"></i>
+                  </el-col>
+
+                  <el-col :span="18">
+                    <el-tag
+                      type="warning"
+                      v-for="(item3, i3) in item2.children"
+                      :key="item3.id"
+                      closable
+                      @close="removeRightById(scope.row, item3.id)"
+                    >
+                      {{ item3.authName }}
+                    </el-tag>
+                  </el-col>
+                </el-row>
+              </el-col>
+            </el-row>
+          </template>
+        </el-table-column>
+        <!-- 索引列 -->
+        <el-table-column type="index" label="#"></el-table-column>
+        <el-table-column label="角色名称" prop="roleName"></el-table-column>
+        <el-table-column label="角色描述" prop="roleDesc"></el-table-column>
+        <el-table-column label="操作" width="300px">
+          <template slot-scope="scope">
+            <el-button
+              size="mini"
+              type="primary"
+              icon="el-icon-edit"
+              @click="editRoleById(scope.row.id)"
+            >
+              编辑
+            </el-button>
+            <el-button
+              size="mini"
+              type="danger"
+              icon="el-icon-delete"
+              @click="deleteRoleById(scope.row.id)"
+            >
+              删除
+            </el-button>
+            <el-button
+              size="mini"
+              type="warning"
+              icon="el-icon-setting"
+              @click="showSetRightDialog(scope.row)"
+            >
+              分配权限
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-card>
     <!-- 编辑对话框 -->
     <el-dialog title="提示" :visible.sync="editDialogVisible" width="50%">
       <el-form :model="editForm" ref="editFormRef" label-width="70px">
@@ -213,6 +214,10 @@ export default {
         console.log(res)
         this.editForm = res
       })
+    },
+    //关闭对话框清楚表单内容
+    addCateClose() {
+      this.$refs.editFormRef.resetFields()
     },
 
     //编辑

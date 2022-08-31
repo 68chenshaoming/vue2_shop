@@ -13,7 +13,11 @@ import {
     reqDeleteRole,
     reqAddRole,
     reqSetRight,
-    reqGetRole
+    reqGetRole,
+    reqGetCateList,
+    reqGetParentCateList,
+    reqPostCate,
+    reqGetCateById
 } from "@/api/index"
 const state = {
     menulist: [],
@@ -21,7 +25,8 @@ const state = {
     user: {},
     changestate: {},
     edlist: {},
-    rolelist: []
+    rolelist: [],
+    catelist: {}
 }
 const mutations = {
     GETMENULIST(state, menulist) {
@@ -41,7 +46,11 @@ const mutations = {
     },
     GETROLES(state, rolelist) {
         state.rolelist = rolelist
-    }
+    },
+    // CATELIST(state, catelist) {
+    //     state.catelist = catelist
+    // }
+
 }
 const actions = {
     async GetMenu({
@@ -192,7 +201,40 @@ const actions = {
         if (res.meta.status == 200) {
             return res
         }
-    }
+    },
+    async getCateList({}, params = {}) {
+        const {
+            data: res
+        } = await reqGetCateList(params)
+        if (res.meta.status == 200) {
+            return res
+        }
+
+    },
+    // async getParentCateList(params) {
+    //     let {
+    //         data: res
+    //     } = await reqGetParentCateList(params)
+    //     if (res.meta.status === 200) {
+    //         return res
+    //     }
+    // }
+    // async addCatePost({}, user) {
+    //     const {
+    //         data: res
+    //     } = await reqPostCate(user)
+    //     console.log(res)
+    // }
+    // async getCateListById({
+    //     commit
+    // }, id) {
+    //     let {
+    //         data: res
+    //     } = await reqGetCateById(id)
+    //     if (res.meta.status == 200)
+    //         commit('CATELIST', res.data)
+    // }
+
 }
 const getters = {
 

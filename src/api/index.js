@@ -87,3 +87,27 @@ export const reqGetRole = () => requests({
     url: `roles`,
     method: 'get'
 })
+
+export const reqGetCateList = (params) => requests({
+    url: `categories`,
+    method: 'get',
+    params
+})
+
+// export const reqGetParentCateList = (params) => requests({
+//     url: `categories`,
+//     method: 'get',
+//     params
+// })
+
+// export const reqPostCate = (params) => requests({
+//     url: `categories`,
+//     method: 'post',
+//     data: params
+// })
+
+// export const reqGetCateById = (id) => requests({
+//     url: `categories/${id}`,
+//     method: 'get',
+
+// })
